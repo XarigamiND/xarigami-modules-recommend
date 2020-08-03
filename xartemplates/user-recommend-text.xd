@@ -1,0 +1,49 @@
+<xar:set name="useinvites">xarModGetVar('recommend','useinvites')</xar:set>
+<xar:ml>
+    <xar:mlstring>Hello #(1),</xar:mlstring>
+    <xar:mlvar>#$friendname#</xar:mlvar>
+</xar:ml>
+
+
+<xar:ml>
+<xar:mlstring>
+Your friend #(1) from #(2) wants you to become a member of our community.
+</xar:mlstring> 
+    <xar:mlvar>#$username#</xar:mlvar>
+    <xar:mlvar>#$sitename#</xar:mlvar>    
+</xar:ml>
+<xar:if condition="isset($useinvites) and $useinvites eq 1">
+<xar:set name="invitelink">xarModURL('recommend','user','invite',array('icode'=>$icode,'useremail'=>$info),false)</xar:set>
+
+
+ To accept this invitation and register for an account using your unique invitation code, visit the #$sitename# account creation area at 
+ 
+ #$invitelink# 
+ 
+Once you create your account, #$username# will be notified.
+
+<xar:else />
+
+<xar:set name="registerme">xarModURL('registration','user','register')</xar:set>
+Click here to sign up: #$registerme# 
+    
+Or click here to check out the site: #$siteurl# 
+</xar:if>
+<xar:if condition="$allowoptout">
+<xar:set name="optoutlink">xarModURL('recommend','user','invite',array('icode'=>$icode,'useremail'=>$info,'optout'=>1),false)</xar:set>
+
+If you do not want to register or receive further emails from us, you can use the following link to opt out. 
+
+#$optoutlink#
+
+</xar:if>
+
+
+<xar:if condition="!empty($usernote)">
+Your friend also wanted to say:
+
+#$usernote#
+
+</xar:if>
+
+-------------------------------------------------------------

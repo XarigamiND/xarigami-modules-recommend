@@ -1,0 +1,32 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Delete recommendation</xar:mlstring></h1>
+        <div class="xar-mod-content">
+
+            <form method="post" action="&xar-modurl-recommend-admin-delete;">
+            <fieldset>
+                <div class="xar-form-input-wrapper">
+
+                    <xar:data-display object="$object" tplmodule="recommend" />
+                </div>
+            </fieldset>
+
+            <div class="xar-form-input-footer">
+
+                <input type="hidden" name="authid" id="authid" value="#xarSecGenAuthKey()#" />
+                <input type="hidden" name="itemid" id="itemid" value="#$itemid#" />
+                <input type="submit" name="confirm" value=" #xarML('Yes')# " />
+                &#160;&#160;&#160;
+                <input type="submit" name="noconfirm" value="  #xarML('No')#  " />
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+

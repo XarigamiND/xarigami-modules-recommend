@@ -1,0 +1,22 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Display recommend item</xar:mlstring></h1>
+        <div class="xar-mod-content">
+              <xar:data-display module="recommend" itemtype="0" itemid="$itemid" />
+
+             <xar:if condition="!empty($hookoutput)">
+               <div class="xar-form-input-wrapper-before">
+                <xar:foreach in="$hookoutput" key="$hookmodule">
+                    #$hookoutput[$hookmodule]#
+                </xar:foreach>
+                </div>
+            </xar:if>
+        </div>
+    </div>
+</div>

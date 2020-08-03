@@ -1,0 +1,131 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Modify configuration</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <form name="post" id="post" action="#xarModURL('recommend','admin','modifyconfig')#" method="post" enctype="application/x-www-form-urlencoded">
+                <fieldset>
+                    <legend>
+                        <xar:mlstring>Statistic</xar:mlstring>
+                    </legend>
+                    <p><xar:mlstring>Number of emails the Recommend module has sent:</xar:mlstring>&#160;&#160; #$numbersent# </p>
+                    <p><xar:mlstring>Last Email sent to:</xar:mlstring>&#160;&#160; <a href="mailto:#$lastemailaddy#">#$lastemailname#</a></p>
+                    <p><xar:mlstring>Last Email sent From:</xar:mlstring>&#160;&#160; #$username#</p>
+                    <p><xar:mlstring>Date last sent:</xar:mlstring>&#160;&#160;#xarLocaleGetFormattedDate('long',$date)#</p>
+                </fieldset>
+                <fieldset>
+                    <legend>
+                        <xar:mlstring>General Options</xar:mlstring>
+                    </legend>
+
+
+                    <div class="xar-form-input-wrapper">
+                        <label for="shorturls" class="xar-form-label" title="#xarML('Support Short URLs')#">
+                            <xar:mlstring>Support Short URLs</xar:mlstring>
+                        </label>
+                        <xar:data-input type="checkbox" name="shorturls" id="shorturls" checked="$SupportShortURLs"   />
+                    </div>
+                    <div class="xar-form-input-wrapper">
+                        <label for="usernote" class="xar-form-label" title="#xarML('Allow Users to Send Notes?')#">
+                              <xar:mlstring>Allow Users to Send Notes?</xar:mlstring>
+                        </label>
+                        <xar:data-input type="checkbox" name="usernote" id="usernote" checked="$usernote" />
+                   </div>
+                    <div class="xar-form-input-wrapper">
+                        <label for="usernote" class="xar-form-label" title="#xarML('Allow user to set subject?')#">
+                              <xar:mlstring>Allow Users to set email subject?</xar:mlstring>
+                        </label>
+                        <xar:data-input type="checkbox" name="usersubject" id="usersubject" checked="$usersubject" />
+                   </div>
+                   <div class="xar-form-input-wrapper">
+                       <label for="recommendperpage" class="xar-form-label" title="#xarML('Recomments or invites per page')#">
+                            <xar:mlstring>Allowed recommend or invites per user send</xar:mlstring>
+                       </label>
+                       <xar:data-input type="textbox" name="recommendperpage" id="recommendperpage" value="$recommendperpage" size="2" maxlength="2" />
+                   </div>
+
+                    <div class="xar-form-input-wrapper">
+                       <label for="usernote" class="xar-form-label" title="#xarML('Email Subject')#" >
+                            <xar:mlstring>Default Email Subject</xar:mlstring>
+                       </label>
+                       <xar:data-input type="textbox" name="title" id="title" value="$title" class="xar-form-textarealong" maxlength="100" />
+                   </div>
+
+                   <div class="xar-form-input-wrapper">
+                    <label for="template" class="xar-form-label" title="#xarML('Email Template')#">
+                            <xar:mlstring>Email Template</xar:mlstring>
+                    </label>
+                    <xar:data-input type="textarea_medium" name="template" id="template" value="$template" tabindex="6"/>
+                    </div>
+                    <div class="xar-form-input-wrapper-after">
+                        <xar:mlstring>This is the template for the mail to be sent.  If you have HTML mail enabled in your Mail Module, then HTML tags are usable.</xar:mlstring>
+                    </div>
+                 </fieldset>
+                 <fieldset>
+                    <legend><xar:mlstring>Invitations and Opt Outs</xar:mlstring></legend>
+                    <div class="xar-form-input-wrapper">
+                        <label for="allowoptout" class="xar-form-label" title="#xarML('Allow users to opt out of receiving emails?')#">
+                            <xar:mlstring>Allow users to opt out of receiving emails?</xar:mlstring>
+                        </label>
+                        <xar:if condition="xarModGetVar('recommend', 'allowoptout')">
+                            <input type="checkbox" name="allowoptout" id="allowoptout" value="1" checked="checked" tabindex="7"/>
+                        <xar:else />
+                            <input type="checkbox" name="allowoptout" id="allowoptout" value="1" />
+                        </xar:if>
+                    </div>
+                    <div class="xar-form-input-wrapper">
+                        <label for="useinvites" class="xar-form-label" title="#xarML('Use invitation option?')#">
+                            <xar:mlstring>Use Invitations?</xar:mlstring>
+                        </label>
+                        <xar:if condition="xarModGetVar('recommend', 'useinvites')">
+                            <input type="checkbox" name="useinvites" id="useinvites" value="1" checked="checked" onchange = "return this.form.submit();" tabindex="8" />
+                        <xar:else />
+                            <input type="checkbox" name="useinvites" id="useinvites" value="1" onchange = "this.form.submit();"  />
+                        </xar:if>
+                    </div>
+                   <xar:if condition="$useinvites">
+                   <div class="xar-form-input-wrapper">
+                        <label for="invitesandreg" class="xar-form-label" title="#xarML('Allow registration without an invitation?')#">
+                            <xar:mlstring>Allow registration without an invitation?</xar:mlstring>
+                        </label>
+                        <xar:data-input type="checkbox" name="invitesandreg" id="invitesandreg" checked="$invitesandreg" />
+                    </div>
+                    <xar:comment>
+                    <div class="xar-form-input-wrapper">
+                        <label for="shorturls" class="xar-form-label" title="#xarML('Save invitation data?')#">
+                            <xar:mlstring>Save invitation data?</xar:mlstring>
+                        </label>
+                        <xar:data-input type="checkbox" name="saveinvites" id="saveinvites" checked="$saveinvites" />
+                        <xar:mlstring>[currently must be set]</xar:mlstring>
+                    </div>
+                    </xar:comment>
+                    <div class="xar-form-input-wrapper">
+                        <label for="matchemail" class="xar-form-label" title="#xarML('Match email address to invitation data?')#">
+                            <xar:mlstring>Require email to match invite?</xar:mlstring>
+                        </label>
+                        <xar:data-input type="checkbox" name="matchemail" id="matchemail" checked="$matchemail" />
+                    </div>
+
+                   <div class="xar-form-input-wrapper">
+                       <label for="itemsperpage" class="xar-form-label" title="#xarML('Items per page')#">
+                            <xar:mlstring>Saved invites per admin view page</xar:mlstring>
+                       </label>
+                       <xar:data-input type="textbox" name="itemsperpage" id="itemsperpage" value="$itemsperpage" size="3" maxlength="3" />
+                   </div>
+                   </xar:if>
+
+                </fieldset>
+            <div class="xar-form-footer">
+                <input type="submit" value="#xarML('Save config')#"/>
+                    <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                    <input type="hidden" name="phase" id="phase" value="update" />
+           </div>
+            </form>
+        </div>
+    </div>
+</div>

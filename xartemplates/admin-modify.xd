@@ -1,0 +1,44 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Modify Recommend Item</xar:mlstring></h1>
+        <div class="xar-mod-content">
+            <xar:set name="withupload">#$object->upload#</xar:set>
+            <xar:set name="enctype">'application/x-www-form-urlencoded'</xar:set>
+            <xar:if condition="!empty($withupload)">
+               <xar:set name="enctype">'multipart/form-data'</xar:set>
+            </xar:if>
+            <form method="post" action="#xarModURL('recommend','admin','update')#" enctype="#$enctype#">
+                <fieldset>
+                    <legend>
+                        <xar:mlstring>Preview</xar:mlstring>
+                    </legend>
+
+                  <xar:data-display object="$object" tplmodule="recommend" />
+                </fieldset>
+                <fieldset>
+                    <legend>
+                        <xar:mlstring>Modify</xar:mlstring>
+                    </legend>
+                    <!-- this does most of the hard work :) -->
+                    <xar:data-form object="$object" tplmodule="recommend" />
+                 </fieldset>
+                    <div class="xar-form-input-wrapper-after">
+                        #$hooks#
+                    </div>
+                <div class="xar-form-footer">
+                   <input type="hidden" name="authid" id="authid" value="#xarSecGenAuthKey()#" />
+                   <input type="hidden" name="itemid" id="itemid" value="#$itemid#" />
+                   <input type="submit" name="preview" value="#xarML('Preview')#" />
+                   &#160;&#160;&#160;
+                   <input type="submit" value="#xarML('Update')#" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

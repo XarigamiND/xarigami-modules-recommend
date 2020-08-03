@@ -1,0 +1,102 @@
+<object name="recommend">
+  <objectid>15</objectid>
+  <label>Recommend Invites</label>
+  <moduleid>772</moduleid>
+  <itemtype>0</itemtype>
+  <urlparam>itemid</urlparam>
+  <maxid>0</maxid>
+  <config></config>
+  <isalias>1</isalias>
+  <properties>
+    <property name="id">
+      <id>92</id>
+      <label>id</label>
+      <type>itemid</type>
+      <default></default>
+      <source>xar_recommend.xar_id</source>
+      <status>2</status>
+      <order>1</order>
+      <validation></validation>
+    </property>
+    <property name="uid">
+      <id>93</id>
+      <label>Inviter User ID</label>
+      <type>integerbox</type>
+      <default>0</default>
+      <source>xar_recommend.xar_uid</source>
+      <status>2</status>
+      <order>2</order>
+      <validation></validation>
+    </property>
+    <property name="uname">
+      <id>94</id>
+      <label>Inviter</label>
+      <type>username</type>
+      <default></default>
+      <source>xar_recommend.xar_uname</source>
+      <status>2</status>
+      <order>3</order>
+      <validation></validation>
+    </property>
+    <property name="iemail">
+      <id>95</id>
+      <label>Invitee Email</label>
+      <type>email</type>
+      <default></default>
+      <source>xar_recommend.xar_iemail</source>
+      <status>1</status>
+      <order>4</order>
+      <validation></validation>
+    </property>
+    <property name="idate">
+      <id>96</id>
+      <label>Invite Date</label>
+      <type>calendar</type>
+      <default></default>
+      <source>xar_recommend.xar_idate</source>
+      <status>2</status>
+      <order>5</order>
+      <validation></validation>
+    </property>
+    <property name="iuname">
+      <id>97</id>
+      <label>Invitee Name</label>
+      <type>textbox</type>
+      <default></default>
+      <source>xar_recommend.xar_iuname</source>
+      <status>2</status>
+      <order>6</order>
+      <validation></validation>
+    </property>
+    <property name="joindate">
+      <id>98</id>
+      <label>Date Joined</label>
+      <type>calendar</type>
+      <default></default>
+      <source>xar_recommend.xar_joindate</source>
+      <status>2</status>
+      <order>7</order>
+      <validation></validation>
+    </property>
+    <property name="icode">
+      <id>99</id>
+      <label>Invite Code</label>
+      <type>textbox</type>
+      <default></default>
+      <source>xar_recommend.xar_icode</source>
+      <status>1</status>
+      <order>8</order>
+      <validation></validation>
+    </property>
+    <property name="iuid">
+      <id>100</id>
+      <label>Invited User ID</label>
+      <type>integerbox</type>
+      <default></default>
+      <source>xar_recommend.xar_iuid</source>
+      <status>1</status>
+      <order>9</order>
+      <validation></validation>
+    </property>
+  </properties>
+</object>

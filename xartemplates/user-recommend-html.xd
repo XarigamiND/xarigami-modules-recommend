@@ -1,0 +1,50 @@
+<xar:set name="useinvites">xarModGetVar('recommend','useinvites')</xar:set>
+
+<p>
+<xar:ml>
+  <xar:mlstring>Hello #(1),</xar:mlstring>
+    <xar:mlvar>#$friendname#</xar:mlvar>
+</xar:ml>
+</p>
+
+<p>
+<xar:ml>
+    <xar:mlstring>
+        Your friend #(1) from #(2) wants you to become a member of our community.
+    </xar:mlstring>
+    <xar:mlvar>#$username#</xar:mlvar>
+    <xar:mlvar>#$sitename#</xar:mlvar>
+    </xar:ml>
+</p>
+<xar:if condition="isset($useinvites) and $useinvites eq 1">
+<xar:set name="invitelink">xarModURL('recommend','user','invite',array('icode'=>$icode,'useremail'=>$info))</xar:set>
+<p>
+ To accept this invitation and register for an account using your unique invitation code, visit the <a href="#$invitelink#">#$sitename# account creation area</a>.
+</p>
+<p>
+ Once you create your account, #$username# will be notified.
+</p>
+<xar:else />
+<xar:set name="registerme">xarModURL('registration','user','register')</xar:set>
+<p>
+<xar:mlstring>Click here to sign up:</xar:mlstring> #$registerme# </p>
+
+<p>
+<xar:mlstring>Or click here to check out the site: </xar:mlstring> #$siteurl# 
+</p>
+</xar:if>
+
+<xar:if condition="$allowoptout">
+<xar:set name="optoutlink">xarModURL('recommend','user','invite',array('icode'=>$icode,'useremail'=>$info,'optout'=>1))</xar:set>
+<p>If you do not want to register or receive further emails from us,
+you can use this <a href="#$optoutlink#">opt out link</a>. If the link does not work, simply copy and paste this URL into your web browser:
+</p>
+<p>    #$optoutlink#
+</p>
+</xar:if>
+<xar:if condition="!empty($usernote)">
+<p>
+<xar:mlstring>Your friend also wanted to say:</xar:mlstring><br />
+#$usernote#
+</p>
+</xar:if>

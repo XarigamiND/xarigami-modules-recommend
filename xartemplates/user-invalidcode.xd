@@ -1,0 +1,42 @@
+<xar:set name="contmail">xarModGetVar('mail', 'adminmail',1)</xar:set>
+<xar:set name="contacturl">'<a href="mailto:#$contmail#">'.xarML('contact us').'</a>'</xar:set>
+<xar:set name="sitename">xarModGetVar('themes', 'SiteName')</xar:set>
+<div class="xar-mod-head">
+    <span class="xar-mod-title"><xar:mlstring>Invitation to Join </xar:mlstring>#$sitename#</span>
+</div>
+
+<div class="xar-mod-body">   
+<xar:if condition="isset($noregistration)">
+        <p>
+        <xar:ml>
+        <xar:mlstring>Thank you for your interest in registering at #(1). Currently membership registration is by invitation only. 
+            If you have not received an invitation or would like to learn more about invitations please #(2).</xar:mlstring>
+        <xar:mlvar>#$sitename#</xar:mlvar>
+        <xar:mlvar>#$contacturl#</xar:mlvar>
+        </xar:ml>
+        </p>
+<xar:elseif condition="isset($optout) and $optout" />
+   <xar:if condition="$icode eq 'optout'">
+        <xar:set name="optoutinfo">'Our records show you have previously opted out of invitations to join this site. You will not receive invitations from this site.'</xar:set>
+    <xar:else />
+        <xar:set name="optoutinfo">' Our records have been updated and you will not no longer receive invitations from this site to join.'</xar:set>
+    </xar:if>
+        <p>
+        <xar:ml>
+        <xar:mlstring>
+            #(1)
+            Please contact the site administrator if you have any further queries.
+        </xar:mlstring>
+        <xar:mlvar>#$optoutinfo#</xar:mlvar>
+        </xar:ml>
+        </p>
+      
+<xar:else />
+        <p>
+        <xar:mlstring>
+            The invitation code you have used has either expired or previously been used for access to our registration process. 
+           Please contact the site administrator if you have any further queries.
+        </xar:mlstring>
+        </p>
+</xar:if>
+</div>

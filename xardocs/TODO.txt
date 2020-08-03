@@ -1,0 +1,114 @@
+INVITE A FRIEND ADD ON
+**********************
+
+FUNCTIONALITY 
+==============
+
+User Interface and functionality
+-------------------------------
+1. Click Invite A Friend Link
+2. Displays form to invite a friend
+3. Form captures friend's name, email, username of inviter and date
+4. Generate a unique sign up code
+5. Save friend's email, date invited, inviter username, invite id to db
+6. a. Check to see if user is already a registered user (FR)
+   b. Check to see if the user has opted out (FR)
+   b. Send the invitation if ok
+
+
+Invitee
+--------
+1. Receives the email
+2. a. Clicks on the link to take them to the site
+   b. Option to OPT out of any further invites (FR)
+3. Module looks up the id and invitee email
+4. If ID is not valid (used), it displays appropriate page and exits process
+5. If valid ID, displays the Registration module registration form
+6. Prepopulation of the registration form with the email address 
+7. User registers as normal - can change email address during registration
+as the invite id is not linked (config option?)
+8. Hook from Recommend module allows update of the Friend's table 
+ - with date of registration
+ - voids the invite ID code in the table so it can't be reused
+9. Normal registration process takes over
+
+GENERAL CONSIDERATIONS
+=====================
+Ultimately this is the case of justification for itemtypes but we can implement them later.
+Thought about using sitecontact, but this invitation functionality is better suited to Recommend, 
+very specific. At some later date we could take advantage of the sitecontact apis but very 
+specific invitaiton related code seems to be better positioned in Recommend.
+
+TABLE REQUIREMENTS
+==================
+Columns include:
+0. ID
+1. xar_uid of person inviting
+2. Username of person inviting
+3. Friend's email
+4. Date invited
+5. Date joined - blank if not used
+6. Username (eg can't rely on the email as being the same as the invite)
+7. Unique invite ID - blank if used
+8. User ID of the invitee if they joined
+
+Index: username?
+
+CONFIGURATION of MODULE
+=======================
+Configuration page to display:
+1. Users invites per page - itemsperpage
+2. Require invitee email only to be matched to invite? - matchemail
+3. User Invitation option? (off by default) - useinvites
+4. Save registration and invitation data? (on by default) - saveinvites
+
+FUNCTIONS
+=========
+1. DONE: xarinit addition - upgrade for module with table and any modvars
+   DONE: - xartables.php file
+2. DONE: Dynamic data object overlay
+3. Admin GUI, templates and api
+    - GUI : View invites view.php plus admin-view.xd - not critical at this stage
+    DONE - GUI : Update modifyconfig, updateconfig and admin-modifyconfig.xd
+    DONE - API: Generate ID
+    DONE - API: update menu links and the include tab file template
+4. User GUI, templates and api
+    DONE - API: Get an invite record - get.php
+    - API: Getall invites with selection criteria (eg by user) - getall.php - not critical at this stage
+    DONE - API: create invite record
+    - API: add to the encode and decode short urls - Not critical
+    DONE: - GUI: display invite - use same function, but configurable templates eg user-invite.xd 
+    DONE: - GUI: user html and text templates for the invite/recommend function (main.php). There is no custom template currently.
+    DONE: - GUI: change the existing send function to create the invite code, adn use custom override templates instead of generic mail template.
+    DONE: - GUI: new template to redirect users who have invalid invite code
+    
+HOOKS
+=====
+DONE: New hook functions required to update the invite record once the user has registered
+      NOTE: - this was not required. Instead a new set of code was added in the invite.php function
+              so that entry to registration can only be achieved through this function.
+              Appropriate code and template checks also created to stop users going direct to the registration function.
+
+DONE: Create/Update hooks (no gui required) to 
+    -  grab the uid of the new registered user
+    -  update the uid to the recommend table
+    -  void the id and add the registration date (at registration or validation? must be registration) 
+       :at registration, we cannot guarantee that validation is always required on a site
+ 
+ 
+NOT IN SPEC
+===========
+DONE: Put in appropriate code/template check for this for the time being.
+    Users can go directly to the registration link if they know it. 
+    There must be a way of preventing registration unless there is a valid icode.
+    
+ADDITIONAL FEATURES
+==================
+DONE: 1. Multiple invitations per page for user
+
+DONE: 2. Check to see if invitee is already a member prior to sending
+
+DONE: 3. Add an Opt-out link to invitation emails
+   - a way to check the list before we invite people
+DONE: 4. Opt in and out for both sendtofriend/invites and recommend/invites
+DONE: 5. Opt in and out GUI

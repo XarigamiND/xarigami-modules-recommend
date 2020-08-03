@@ -1,0 +1,9 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+
+<xar:set name="alttext"><xar:mlstring>Send this article to a friend</xar:mlstring></xar:set>
+<xar:set name="link">#xarModURL('recommend','user','sendtofriend',array('aid'=&gt; $aid))#</xar:set>
+<xar:set name="sendimg">#xarTplGetImage('icons/mail.png', 'base')#</xar:set>
+
+<xar:if condition="!empty($value)" >
+    <a style="text-decoration:none;" href="#$link#" title="#$alttext#" alt="#$alttext#"><img src="#$sendimg#" style="border:0;" alt="#$alttext#" />&#160;<xar:mlstring>Sent to a friend</xar:mlstring></a>
+</xar:if>

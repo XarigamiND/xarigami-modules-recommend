@@ -1,0 +1,37 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Opt back in</xar:mlstring></h1>
+        <xar:template type="module" file="where-menu" />
+        <div class="xar-mod-content">
+            <xar:if condition="$validoptin eq 1">
+              <p class="xar-error"><xar:mlstring>You have successfully opted back in the user with email </xar:mlstring> #$iemail#</p>
+            <xar:elseif condition="$validoptin eq 0 and !empty($iemail)"/>
+              <p class="xar-error">There is a problem with that email or it is currently not opted out.</p>
+            </xar:if>
+            <form method="post" action="&xar-modurl-recommend-admin-optin;">
+            <fieldset>
+                <div class="xar-form-input-wrapper">
+                     <label for="iemail" class="xar-form-label" title="#xarML('Email to opt back in')#">
+                            <xar:mlstring>Email to opt back in</xar:mlstring>:
+                    </label>
+                    <input type="text" name="iemail" id="iemail" value="" size="30" maxlength="125" />
+                </div>
+            </fieldset>
+
+            <div class="xar-form-footer">
+
+                <input type="submit" name="confirm" value="OptIn" />
+                <input type="submit" name="noconfirm" value="Cancel" />
+                <input type="hidden" name="authid" id="authid" value="#$authid#" />
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+

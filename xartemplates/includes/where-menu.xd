@@ -1,0 +1,35 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<xar:style scope="module" module="base" file="navtabs" />
+<xar:set name="request">xarRequestGetInfo()</xar:set>
+<xar:set name="activetab">#$request.2#</xar:set>
+<xar:set name="wherearg">isset($wherearg)?$wherearg:'';</xar:set>
+<div>
+  <ul class="xar-tabs">
+    <li class="xar-tabs-label" title="Choose an action to perform">
+      <xar:mlstring>OptOuts:</xar:mlstring>
+    </li>
+   <xar:sec mask="EditRecommend" catch="false">
+        <xar:set name="tabclass">$wherearg=='optout'?'xar-tab-active':'xar-tab'</xar:set>
+        <li class="#$tabclass#">
+          <a  href="#xarModURL('recommend','admin','view',array('whereis'=>'icode  = \'optout\' and iuname ne \'sendfriend\''),false)#">
+            <xar:mlstring>Invite Optouts</xar:mlstring>
+          </a>
+        </li>
+    </xar:sec>
+    <xar:sec mask="EditRecommend" catch="false">
+        <xar:set name="tabclass">$wherearg=='sendfriend'?'xar-tab-active':'xar-tab'</xar:set>
+        <li class="#$tabclass#">
+           <a" href="#xarModURL('recommend','admin','view',array('whereis'=>'iuname  =  \'sendfriend\''),false)#">
+            <xar:mlstring>SendFriend Optouts</xar:mlstring>
+          </a>
+        </li>
+    </xar:sec>
+        <xar:set name="tabclass">$wherearg=='optin'?'xar-tab-active':'xar-tab'</xar:set>
+    <li class="#$tabclass#">
+          <a href="#xarModURL('recommend','admin','optin')#">
+        <xar:mlstring>OptIn an Email</xar:mlstring>
+      </a>
+    </li>
+
+  </ul>
+</div>

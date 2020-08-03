@@ -1,0 +1,16 @@
+<xar:comment> License: GPL http://www.gnu.org/copyleft/gpl.html </xar:comment>
+<div class="xar-mod-page">
+    <div class="xar-mod-head">
+        <xar:if condition="!xarRequestIsAJAX()">
+            <xar:template type="module" module="base" file="admin-menu" />
+        </xar:if>
+    </div>
+    <div class="xar-mod-body">
+        <h1><xar:mlstring>Review invitations</xar:mlstring></h1>
+        <div class="xar-mod-content">
+          <xar:template type="module" file="where-menu" />
+            <br />
+              <xar:data-list module="recommend" itemtype="0" numitems="$itemsperpage" startnum="$startnum" where="$whereis" tplmodule="recommend" />
+        </div>
+    </div>
+</div>

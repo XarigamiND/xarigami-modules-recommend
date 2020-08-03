@@ -1,0 +1,45 @@
+ChangeLog
+
+Version   - 1.2.0
+- Fixed the code for current xarigami core
+- adjusted code to work with xarigami Registration
+- Up the version to signify major rewrite
+
+[scenario changes added - 150 revisions!
+version info added below for reference]
+Version 1.1.0 - jojodee   15 mar 07 
+Opt in and opt out options for invitees
+- send to friend, and recommend/invite opt out
+- out in via admin gui
+- finalize admin area for invites
+
+Version 1.0.4 - jojodee  26 Feb 07 
+* Add multiple invites per page
+ - user can invite multiple users in one submit
+ - better validation checking for input
+ 
+Version 1.0.3 - jojodee 10 Feb 07
+* Added hooks to replace hard coded dependencies in templates
+  for invitation table updates 
+
+Version 1.0.2 - jojodee  21 Jan 07
+* Add Invitation functionality
+  - users can invite friends via an invitation email
+  - can sign up only via invites
+
+Version 1.0.1 - jojodee
+ * Add send to friend functionality 
+   - needs update for all itemtypes rather than aid
+ * Added send to friend DD property
+ * Send to friend custom tag
+   (left DD property as it has slightly different functionality)
+ * Short URLS for Recommend
+ * Short URLS for the Send to Friend component
+
+Version 1.0.0 - john cox
+ * Added Statistics
+ * Added User Contributed Notes
+ * Added template for the mail
+ * Fixed HTML Display
+
+Credits to jojodee for the User Contributed Notes.

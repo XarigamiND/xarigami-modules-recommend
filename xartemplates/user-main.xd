@@ -1,0 +1,147 @@
+<xar:comment>
+   There are a number of variables checked isset in this template as they may come directly from the main function,
+   or be passed in via a xarTplModule call. We don't want to override a setting if it's already set elsewhere.
+</xar:comment>
+<xar:base-include-javascript position="head" module="recommend" filename="validateform.js" />
+<xar:if condition="$useinvites">
+    <xar:set name="thistitle"><xar:mlstring>Invite A Friend</xar:mlstring></xar:set>
+<xar:else />
+    <xar:set name="thistitle"><xar:mlstring>Recommend Us</xar:mlstring></xar:set>
+</xar:if>
+<div class="xar-mod-head">
+    <span class="xar-mod-title">#$thistitle#</span>
+</div>
+
+<div class="xar-mod-body">
+    <xar:if id="title_condition" condition="!empty($message)">
+        <p>#$message#</p>
+    <xar:else />
+    
+        <form action="&xar-modurl-recommend-user-send;" method="post" enctype="application/x-www-form-urlencoded">
+            <fieldset>
+                <legend><xar:mlstring>Email Details</xar:mlstring></legend>
+                <div class="xar-form-input-wrapper">
+                    <label for="username" class="xar-form-label" title="#xarML('Your Name')#">
+                        <xar:mlstring>Your Name</xar:mlstring>:
+                    </label>
+                    <xar:if condition = "xarUserIsLoggedIn()">
+                        <input type="hidden" name="username" id="username" value="#xarUserGetVar('name')#" />
+                        #xarUserGetVar('name')#
+                    <xar:else />
+                        <input type="text" name="username" id="username" value="" size="25" maxlength="25" tabindex="1" />
+                        <xar:if condition="!empty($invalid['username'])">
+                            <span class="xar-error">#$invalid['username']#</span>
+                        </xar:if>                  
+                    </xar:if>
+                </div>
+        
+                <div class="xar-form-input-wrapper">
+                    <label for="useremail" class="xar-form-label" title="#xarML('Your Email')#">
+                        <xar:mlstring>Your Email</xar:mlstring>:
+                    </label>
+                    <xar:if condition = "xarUserIsLoggedIn()">
+                        <input type="hidden" name="useremail" id="useremail" value="#xarUserGetVar('email')#" />
+                            #xarUserGetVar('email')#
+                    <xar:else />
+                        <input type="text" name="useremail" id="useremail" value="" size="25" maxlength="25"  tabindex="2" />
+                        <xar:if condition="!empty($invalid['useremail'])">
+                            <span class="xar-error">#$invalid['useremail']#</span>
+                        </xar:if>  
+                    </xar:if>
+                </div>
+    
+            <xar:comment>Get the friend's name and email</xar:comment>
+            <xar:set name="multiplesend">xarModGetVar('recommend','recommendperpage')>1?true:false;</xar:set>
+            <xar:if condition="!$multiplesend">
+                <xar:set name="fname">isset($fname)?$fname:'';</xar:set>
+                <xar:set name="infol">isset($info)?$info:'';</xar:set>
+    
+                <div class="xar-form-input-wrapper">
+                     <label for="fname" class="xar-form-label" title="#xarML('Your friend\'s name')#">
+                        <xar:mlstring>Your Friend's Name</xar:mlstring>:
+                     </label>
+                     <input type="text" name="fname" id="fname" value="#$fname#" size="25" maxlength="25"  tabindex="3" />
+     
+                   <xar:if condition="!empty($invalid['fname'])">
+                        <span class="xar-error">#$invalid['fname']#</span>
+                    </xar:if>             
+                </div>
+    
+                <div class="xar-form-input-wrapper">
+                     <label for="info" class="xar-form-label" title="#xarML('Email Address of your friend')#">
+                        <xar:mlstring>Friend's Email Address:</xar:mlstring>
+                     </label>
+                     <xar:data-input type="email" name="info" id="info" value="$info" size="35" maxlength="255"  tabindex="4"/>
+                     <xar:if condition="!empty($invalid['info'])">
+                        <span class="xar-error">#$invalid['info']#</span>
+                    </xar:if>            
+                </div>
+                
+            <xar:elseif condition="$multiplesend" />
+                <xar:comment> We are sending to potentially multiple users so grab their names and emails</xar:comment>
+                <xar:set name="counter">0</xar:set>
+                <xar:set name="howmanytosend">!isset($howmanytosend)?xarModGetVar('recommend','howmanytosend'):$howmanytosend;</xar:set>
+                <xar:for start="$counter=0" test="$counter lt $howmanytosend" iter="$counter++" >
+                    <xar:set name="fnamelistvalue">isset($fnamelist[$counter])?$fnamelist[$counter]:'';</xar:set>
+                    <xar:set name="infolistvalue">isset($infolist[$counter])?$infolist[$counter]:'';</xar:set>
+                    <xar:set name="emailno">$counter+1</xar:set>
+                    <xar:if condition="(($counter+1)%2)">
+                        <xar:set name="thisstyle">'clear:left;float:left;text-align:left;width:45%;'</xar:set>
+                    <xar:else />
+                        <xar:set name="thisstyle">'text-align:left;float:right;width:45%;'</xar:set>
+                    </xar:if>
+                    <div style="#$thisstyle#">
+                        <p class="xar-clearleft xar-xar-floatleft xar-thirdwidth">
+                           <xar:ml>
+                               <xar:mlstring>Friend's name ###(1):</xar:mlstring>
+                               <xar:mlvar>#$emailno#</xar:mlvar>
+                           </xar:ml>
+                           <input type="text" name="fnamelist[#$counter#]" id="fnamelist.#$counter#" value="#$fnamelistvalue#" size="25" maxlength="25"  tabindex="#$counter+4#"/>
+                        </p>
+                        <p class="xar-xar-floatleft xar-thirdwidth" >
+                           <xar:ml>
+                               <xar:mlstring>Friend's email ###(1):</xar:mlstring>
+                               <xar:mlvar>#$emailno#</xar:mlvar>
+                           </xar:ml>
+                           <input type="text" name="infolist[#$counter#]" id="infolist.#$counter#" value="#$infolistvalue#" size="35" maxlength="255"  tabindex="#$counter+4#"/>
+                        </p>
+                         <xar:if condition="!empty($invalid['infolist'][$counter])">
+                                <p class="xar-error xar-quarterwidth" >#$invalid['infolist'][$counter]#</p>
+                         <xar:else />
+                                <p class="xar-error xar-quarterwidth" >&nbsp;</p>
+                         </xar:if>
+                    </div>
+                </xar:for>
+            </xar:if>
+            <br class="xar-clearleft" />
+            <xar:set name="allowusersubject">isset($allowusersubject)?$allowusersubject:xarModGetVar('recommend','usersubject')</xar:set>
+            <xar:if condition="$allowusersubject">
+            <div class="xar-form-input-wrapper">
+                  <label for="usersubject" class="xar-form-label" title="#xarML('Subject of your email')#">
+                        <xar:mlstring>Subject:</xar:mlstring>
+                  </label>
+                 <input type="text" name="usersubject" id="usersubject" value="#$subject#" size="40" maxlength="125" tabindex="100"/>
+            </div>
+            </xar:if>
+    
+            <xar:if condition="xarModGetVar('recommend', 'usernote')">
+            <div class="xar-form-input-wrapper">
+                <label for="usernote" class="xar-form-label" title="#xarML('Your Added Notes')#">
+                        <xar:mlstring>Your Message:</xar:mlstring>
+                </label>
+                <textarea name="usernote" id="usernote" rows="5" cols="40" tabindex="101"></textarea>
+            </div>
+            </xar:if>
+    
+        </fieldset>
+        <fieldset>
+            <div class="xar-form-input-wrapper-after">
+                <input type="hidden" name="authid" id="authid" value="#$authid#" />
+                <input id="submit" type="submit" value="#xarML('Send')#" />
+            </div>
+        </fieldset>
+        </form>
+    </xar:if>
+
+</div>
+
