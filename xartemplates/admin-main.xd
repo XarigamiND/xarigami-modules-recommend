@@ -98,14 +98,8 @@
               <h3>
                     <xar:mlstring>Further Information</xar:mlstring>
               </h3>
-              <p>
-                  <xar:mlstring>Further information on the Recommend module can be found at</xar:mlstring>
-              </p>
                <ul>
-                      <li><xar:mlstring>Xarigami Recommend Project page</xar:mlstring> <a title="#xarML('xarigami Recommend Module')#" href="http://xarigami.com/project/xarigami_recommend">Xarigami Recommend Project Page</a>.
-                      </li>
-                      <li><xar:mlstring>Related tutorials and documentation on Xarigami Recommend found at the project page </xar:mlstring> <a href="http://xarigami.com/project/xarigami_recommend?page=resources" title="#xarML('Related documentation on Recommend')#"><xar:mlstring>Xarigami Resource Link</xar:mlstring></a>
-                      </li>
+                      <li><a href="http://xarigami.org/project/xarigami_recommend"><xar:mlstring>Xarigami Recommend project page</xar:mlstring></a></li>
                  </ul>
                  <p class="xar-sub"><strong>&nbsp;<xar:mlstring>Xarigami Recommend Module - Overview</xar:mlstring></strong><br />&nbsp;<xar:mlstring>Version</xar:mlstring> 1.1.1&nbsp; 2009-08-22
                  </p>
